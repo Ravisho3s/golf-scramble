@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Scramble Leaderboard</title>
+<link rel="stylesheet" href="../style.css">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  main { max-width: 480px; }
+  .admin-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.2rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  }
+  .admin-card h2 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    margin: 0 0 0.9rem;
+    color: var(--fairway);
+  }
+  .name-row { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem; }
+  .name-row .dot { flex-shrink: 0; }
+  .name-row input {
+    flex: 1;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid #D8D3C4;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+  }
+  .btn {
+    display: inline-block;
+    border: none;
+    border-radius: 8px;
+    padding: 0.65rem 1.1rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+  .btn-primary { background: var(--fairway); color: white; }
+  .btn-danger { background: var(--flag-red); color: white; }
+  .btn-row { display: flex; gap: 0.6rem; margin-top: 0.4rem; }
+  .status { font-size: 0.85rem; color: #6B6759; margin-top: 0.6rem; min-height: 1.2em; }
+  .warn { font-size: 0.82rem; color: #8A5A00; background: #FFF6E0; border-radius: 8px; padding: 0.6rem 0.8rem; margin-bottom: 1rem; }
+  #lock-screen { max-width: 320px; margin: 4rem auto; text-align: center; }
+  #lock-screen input { width: 100%; padding: 0.7rem; border-radius: 8px; border: 1px solid #D8D3C4; text-align: center; font-size: 1.1rem; margin-bottom: 0.7rem; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <h1><span class="flag-icon">⛳</span> Admin</h1>
+    <a href="../index.html" style="color:var(--cream); font-size:0.85rem;">← Back to leaderboard</a>
+  </div>
+</header>
+
+<main>
+  <div id="lock-screen">
+    <p class="hint">Enter the admin PIN to continue.</p>
+    <input id="pin-input" type="password" inputmode="numeric" placeholder="PIN">
+    <button id="pin-submit" class="btn btn-primary" style="width:100%;">Unlock</button>
+    <p class="status" id="pin-status"></p>
+  </div>
+
+  <div id="admin-panel" style="display:none;">
+    <p class="warn">Heads up: this page has no real login security — it's just a soft PIN to prevent accidental taps. Don't share this link publicly.</p>
+
+    <div class="admin-card">
+      <h2>Team Names</h2>
+      <div id="name-fields"></div>
+      <div class="btn-row">
+        <button id="save-names" class="btn btn-primary">Save Names</button>
+      </div>
+      <p class="status" id="names-status"></p>
+    </div>
+
+    <div class="admin-card">
+      <h2>Reset Scores</h2>
+      <p class="hint" style="margin-top:0;">Clears every hole for all three teams. This cannot be undone.</p>
+      <div class="btn-row">
+        <button id="reset-scores" class="btn btn-danger">Reset All Scores</button>
+      </div>
+      <p class="status" id="reset-status"></p>
+    </div>
+  </div>
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-database-compat.js"></script>
+<script src="../firebase-config.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
